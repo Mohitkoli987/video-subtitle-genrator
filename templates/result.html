@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video with Subtitles</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .video-container {
+            text-align: center;
+        }
+        video {
+            width: 80%;
+            height: auto;
+        }
+        .cc-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Video with Subtitles</h1>
+        <div class="video-container">
+            <video id="video" controls>
+                <source src="{{ url_for('static', filename='videos/' + video_filename) }}" type="video/mp4">
+                <track id="subtitles" src="{{ url_for('static', filename='videos/' + subtitle_filename) }}" kind="subtitles" srclang="en" label="English" default>
+                Your browser does not support the video tag.
+            </video>
+            <div class="cc-button text-center">
+                <button id="toggleSubtitles" class="btn btn-secondary">Toggle CC</button>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/" class="btn btn-secondary">Upload Another Video</a>
+        </div>
+    </div>
+    
+    <script>
+        const video = document.getElementById('video');
+        const subtitleTrack = document.getElementById('subtitles');
+        const toggleSubtitlesButton = document.getElementById('toggleSubtitles');
+
+        toggleSubtitlesButton.addEventListener('click', () => {
+            if (subtitleTrack.mode === 'showing') {
+                subtitleTrack.mode = 'hidden';
+                toggleSubtitlesButton.textContent = 'Show CC';
+            } else {
+                subtitleTrack.mode = 'showing';
+                toggleSubtitlesButton.textContent = 'Hide CC';
+            }
+        });
+    </script>
+</body>
+</html>
